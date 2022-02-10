@@ -51,14 +51,14 @@ Blocking only briefly occurs on the `accounts` vector if an account doesn't exis
 For lack of better testing data, a small node tool `txgen.js` can be used.  
 This tool will generate a million transactions and write them to stdout.
 
-Example usage: `node ./txgen.js > transactions.csv`
+Example usage: `node ./helpers/txgen.js > transactions.csv`
 
 This dataset can then be parsed using the tx engine:  
 `cargo run --release -- transactions.csv > output.csv`
 
 Performance with generated sample datasets:  
 `1,000,000` transactions (`42 MB`): `1.8s`  
-`10,000,000` transactions (`441 MB`): `19.4s`  
+`10,000,000` transactions (`441 MB`): `19.4s`
 
 #### Parallelism Experiments
 
