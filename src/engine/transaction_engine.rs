@@ -36,7 +36,7 @@ impl TransactionEngine {
         E: Error + Sync + Send + 'static,
     {
         for record in records {
-            Self::process_transaction(&self.accounts, record?).unwrap()
+            Self::process_transaction(&self.accounts, record?).await?
         }
 
         Ok(())
@@ -58,7 +58,7 @@ impl TransactionEngine {
     }
 
     /// Process a single transaction record.
-    fn process_transaction(
+    async fn process_transaction(
         accounts: &RwLock<Vec<AccountAccessor>>,
         tx: TransactionRecord,
     ) -> Result<()> {
