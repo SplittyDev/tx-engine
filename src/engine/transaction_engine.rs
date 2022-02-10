@@ -1,5 +1,4 @@
 use anyhow::{anyhow, Context, Result};
-use rayon::{iter::ParallelIterator, prelude::ParallelBridge};
 use std::{
     error::Error,
     marker::{Send, Sync},
@@ -9,7 +8,7 @@ use std::{
 use super::{Account, TransactionDetails, TransactionRecord, TransactionType};
 
 /// A small bridge between the `TransactionEngine` and the `Account`.
-/// 
+///
 /// This allows the engine to find accounts by `client_id` without having to
 /// acquire locks for all accounts.
 struct AccountAccessor {
@@ -36,11 +35,9 @@ impl TransactionEngine {
         I: Iterator<Item = std::result::Result<TransactionRecord, E>> + Sync + Send,
         E: Error + Sync + Send + 'static,
     {
-        records.par_bridge().for_each(|record| {
-            if let Ok(record) = record {
-                Self::process_transaction(&self.accounts, record).unwrap()
-            }
-        });
+        for record in records {
+            Self::process_transaction(&self.accounts, record?).unwrap()
+        }
 
         Ok(())
     }
