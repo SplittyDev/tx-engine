@@ -43,6 +43,8 @@ Blocking only briefly occurs on the `accounts` vector if an account doesn't exis
   - Assumption: This is a no-op. Don't throw an error and just ignore the tx.
 - Handling of locked accounts is unspecified
   - Assumption: Don't throw an error, but ignore all further transaction for the client.
+- Float precision is specified as four places past the decimal
+  - Assumption: I'm not rounding floats and instead serializing the full precision available. More precision can't hurt, right?
 
 ### Additional Notes
 
