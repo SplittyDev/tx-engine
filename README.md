@@ -63,7 +63,10 @@ Performance with generated sample datasets:
 #### Parallelism Experiments
 
 I've experimented with using `tokio` and `rayon`.
+
 Neither tokio nor rayon added a significant benefit though, since tokio doesn't do exceptionally well on purely CPU-bound workloads and rayon had (at least in my testing) some issues with missing iterations, which caused tests to fail randomly.
+
+The code is fully ready for parallelism (see the locking mechanisms above), I've left them in even after deciding to drop rayon and tokio since that was a last-minute decision.
 
 I've opted to use `tokio` very sparingly to allow for future parallelization of `process_transactions`. Even though the use of `tokio` doesn't make a difference at the moment, it would allow for processing multiple transaction files at the same time with only small code changes.
 
