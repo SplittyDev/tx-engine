@@ -1,1 +1,5 @@
 /target
+
+# Ignore huge dataset, too big for GitHub lmao
+data/huge_dataset.csv
+data/huge_dataset_output.csv
